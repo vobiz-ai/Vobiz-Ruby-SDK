@@ -1,0 +1,11 @@
+{
+  "cliVersion": "5.50.5",
+  "generatorName": "fernapi/fern-ruby-sdk",
+  "generatorVersion": "1.13.1",
+  "generatorConfig": {
+    "clientClassName": "Vobiz"
+  },
+  "originGitCommit": "e8a4ebb9425a3225753a525b2fd4e400cdc04676",
+  "originGitCommitIsDirty": true,
+  "invokedBy": "manual"
+}
