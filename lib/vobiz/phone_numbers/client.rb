@@ -247,6 +247,51 @@ module Vobiz
         raise error_class.new(response.body, code: code)
       end
 
+      # Returns the health & analytics dashboard for one of your numbers: current
+      # status, spam flag, and call metrics over the selected window (total and
+      # answered calls, answer rate, minutes, average duration) plus a per-period
+      # time series of snapshots.
+      #
+      # @param request_options [Hash]
+      # @param params [Hash]
+      # @option request_options [String] :base_url
+      # @option request_options [Hash{String => Object}] :additional_headers
+      # @option request_options [Hash{String => Object}] :additional_query_parameters
+      # @option request_options [Hash{String => Object}] :additional_body_parameters
+      # @option request_options [Integer] :timeout_in_seconds
+      # @option params [String] :auth_id
+      # @option params [String] :e164
+      # @option params [Vobiz::PhoneNumbers::Types::GetNumberHealthRequestGranularity, nil] :granularity
+      # @option params [Integer, nil] :days
+      #
+      # @return [Vobiz::PhoneNumbers::Types::GetNumberHealthResponse]
+      def get_number_health(request_options: {}, **params)
+        params = Vobiz::Internal::Types::Utils.normalize_keys(params)
+        query_params = {}
+        query_params["granularity"] = params[:granularity] if params.key?(:granularity)
+        query_params["days"] = params[:days] if params.key?(:days)
+
+        request = Vobiz::Internal::JSON::Request.new(
+          base_url: request_options[:base_url],
+          method: "GET",
+          path: "api/v1/account/#{URI.encode_uri_component(params[:auth_id].to_s)}/numbers/#{URI.encode_uri_component(params[:e164].to_s)}/health",
+          query: query_params,
+          request_options: request_options
+        )
+        begin
+          response = @client.send(request)
+        rescue Net::HTTPRequestTimeout
+          raise Vobiz::Errors::TimeoutError
+        end
+        code = response.code.to_i
+        if code.between?(200, 299)
+          Vobiz::PhoneNumbers::Types::GetNumberHealthResponse.load(response.body)
+        else
+          error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
+          raise error_class.new(response.body, code: code)
+        end
+      end
+
       # Assign a parent-pool DID to a sub-account.
       #
       # @param request_options [Hash]

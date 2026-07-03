@@ -27,6 +27,13 @@ module Vobiz
       # @option params [String, nil] :end_date
       # @option params [Vobiz::Cdr::Types::ListCdrsRequestCallDirection, nil] :call_direction
       # @option params [Integer, nil] :min_duration
+      # @option params [String, nil] :sip_call_id
+      # @option params [String, nil] :bridge_uuid
+      # @option params [String, nil] :hangup_cause
+      # @option params [String, nil] :hangup_disposition
+      # @option params [String, nil] :context
+      # @option params [String, nil] :campaign_id
+      # @option params [String, nil] :search
       # @option params [Integer, nil] :page
       # @option params [Integer, nil] :per_page
       #
@@ -40,6 +47,13 @@ module Vobiz
         query_params["end_date"] = params[:end_date] if params.key?(:end_date)
         query_params["call_direction"] = params[:call_direction] if params.key?(:call_direction)
         query_params["min_duration"] = params[:min_duration] if params.key?(:min_duration)
+        query_params["sip_call_id"] = params[:sip_call_id] if params.key?(:sip_call_id)
+        query_params["bridge_uuid"] = params[:bridge_uuid] if params.key?(:bridge_uuid)
+        query_params["hangup_cause"] = params[:hangup_cause] if params.key?(:hangup_cause)
+        query_params["hangup_disposition"] = params[:hangup_disposition] if params.key?(:hangup_disposition)
+        query_params["context"] = params[:context] if params.key?(:context)
+        query_params["campaign_id"] = params[:campaign_id] if params.key?(:campaign_id)
+        query_params["search"] = params[:search] if params.key?(:search)
         query_params["page"] = params[:page] if params.key?(:page)
         query_params["per_page"] = params[:per_page] if params.key?(:per_page)
 
@@ -81,6 +95,13 @@ module Vobiz
       # @option params [String, nil] :end_date
       # @option params [Vobiz::Cdr::Types::SearchCdrsRequestCallDirection, nil] :call_direction
       # @option params [Integer, nil] :min_duration
+      # @option params [String, nil] :sip_call_id
+      # @option params [String, nil] :bridge_uuid
+      # @option params [String, nil] :hangup_cause
+      # @option params [String, nil] :hangup_disposition
+      # @option params [String, nil] :context
+      # @option params [String, nil] :campaign_id
+      # @option params [String, nil] :search
       # @option params [Integer, nil] :page
       # @option params [Integer, nil] :per_page
       #
@@ -94,6 +115,13 @@ module Vobiz
         query_params["end_date"] = params[:end_date] if params.key?(:end_date)
         query_params["call_direction"] = params[:call_direction] if params.key?(:call_direction)
         query_params["min_duration"] = params[:min_duration] if params.key?(:min_duration)
+        query_params["sip_call_id"] = params[:sip_call_id] if params.key?(:sip_call_id)
+        query_params["bridge_uuid"] = params[:bridge_uuid] if params.key?(:bridge_uuid)
+        query_params["hangup_cause"] = params[:hangup_cause] if params.key?(:hangup_cause)
+        query_params["hangup_disposition"] = params[:hangup_disposition] if params.key?(:hangup_disposition)
+        query_params["context"] = params[:context] if params.key?(:context)
+        query_params["campaign_id"] = params[:campaign_id] if params.key?(:campaign_id)
+        query_params["search"] = params[:search] if params.key?(:search)
         query_params["page"] = params[:page] if params.key?(:page)
         query_params["per_page"] = params[:per_page] if params.key?(:per_page)
 
@@ -176,6 +204,13 @@ module Vobiz
       # @option params [String, nil] :end_date
       # @option params [Vobiz::Cdr::Types::ExportCdrsRequestCallDirection, nil] :call_direction
       # @option params [Integer, nil] :min_duration
+      # @option params [String, nil] :sip_call_id
+      # @option params [String, nil] :bridge_uuid
+      # @option params [String, nil] :hangup_cause
+      # @option params [String, nil] :hangup_disposition
+      # @option params [String, nil] :context
+      # @option params [String, nil] :campaign_id
+      # @option params [String, nil] :search
       #
       # @return [untyped]
       def export_cdrs(request_options: {}, **params)
@@ -187,6 +222,13 @@ module Vobiz
         query_params["end_date"] = params[:end_date] if params.key?(:end_date)
         query_params["call_direction"] = params[:call_direction] if params.key?(:call_direction)
         query_params["min_duration"] = params[:min_duration] if params.key?(:min_duration)
+        query_params["sip_call_id"] = params[:sip_call_id] if params.key?(:sip_call_id)
+        query_params["bridge_uuid"] = params[:bridge_uuid] if params.key?(:bridge_uuid)
+        query_params["hangup_cause"] = params[:hangup_cause] if params.key?(:hangup_cause)
+        query_params["hangup_disposition"] = params[:hangup_disposition] if params.key?(:hangup_disposition)
+        query_params["context"] = params[:context] if params.key?(:context)
+        query_params["campaign_id"] = params[:campaign_id] if params.key?(:campaign_id)
+        query_params["search"] = params[:search] if params.key?(:search)
 
         request = Vobiz::Internal::JSON::Request.new(
           base_url: request_options[:base_url],

@@ -18,6 +18,20 @@ module Vobiz
 
         field :min_duration, -> { Integer }, optional: true, nullable: false
 
+        field :sip_call_id, -> { String }, optional: true, nullable: false
+
+        field :bridge_uuid, -> { String }, optional: true, nullable: false
+
+        field :hangup_cause, -> { String }, optional: true, nullable: false
+
+        field :hangup_disposition, -> { String }, optional: true, nullable: false
+
+        field :context, -> { String }, optional: true, nullable: false
+
+        field :campaign_id, -> { String }, optional: true, nullable: false
+
+        field :search, -> { String }, optional: true, nullable: false
+
         field :page, -> { Integer }, optional: true, nullable: false
 
         field :per_page, -> { Integer }, optional: true, nullable: false

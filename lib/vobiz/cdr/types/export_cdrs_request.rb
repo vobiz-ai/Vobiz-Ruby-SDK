@@ -17,6 +17,20 @@ module Vobiz
         field :call_direction, -> { Vobiz::Cdr::Types::ExportCdrsRequestCallDirection }, optional: true, nullable: false
 
         field :min_duration, -> { Integer }, optional: true, nullable: false
+
+        field :sip_call_id, -> { String }, optional: true, nullable: false
+
+        field :bridge_uuid, -> { String }, optional: true, nullable: false
+
+        field :hangup_cause, -> { String }, optional: true, nullable: false
+
+        field :hangup_disposition, -> { String }, optional: true, nullable: false
+
+        field :context, -> { String }, optional: true, nullable: false
+
+        field :campaign_id, -> { String }, optional: true, nullable: false
+
+        field :search, -> { String }, optional: true, nullable: false
       end
     end
   end

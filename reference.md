@@ -789,7 +789,12 @@ client.cdr.list_cdrs(
   to_number: "1234567890",
   start_date: "2026-03-01",
   end_date: "2026-03-17",
-  min_duration: 10
+  min_duration: 10,
+  sip_call_id: "dD1qwu5VZ5iK3ed5u3uspjY5RKL",
+  bridge_uuid: "4b7ae653-f40d-42f1-b582-6b05dfcd0c0a",
+  hangup_cause: "NORMAL_CLEARING",
+  hangup_disposition: "send_refuse",
+  context: "sip-trunking"
 )
 ```
 </dd>
@@ -861,6 +866,62 @@ client.cdr.list_cdrs(
 <dl>
 <dd>
 
+**sip_call_id:** `String` — Filter by the SIP Call-ID of the call (matches the cdr's sip_call_id field).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bridge_uuid:** `String` — Filter by the UUID of the bridged leg (matches the cdr's bridge_uuid field).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_cause:** `String` — Filter by telephony hangup cause, e.g. NORMAL_CLEARING.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_disposition:** `String` — Filter by how the leg was released, e.g. send_refuse.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**context:** `String` — Filter by the call context, e.g. sip-trunking.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**campaign_id:** `String` — Filter by the campaign identifier associated with the call.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `String` — Free-text search across CDR fields (numbers, IDs, etc.).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **page:** `Integer` — Page number for paginated results.
     
 </dd>
@@ -923,7 +984,12 @@ client.cdr.search_cdrs(
   to_number: "1234567890",
   start_date: "2026-03-01",
   end_date: "2026-03-17",
-  min_duration: 10
+  min_duration: 10,
+  sip_call_id: "dD1qwu5VZ5iK3ed5u3uspjY5RKL",
+  bridge_uuid: "4b7ae653-f40d-42f1-b582-6b05dfcd0c0a",
+  hangup_cause: "NORMAL_CLEARING",
+  hangup_disposition: "send_refuse",
+  context: "sip-trunking"
 )
 ```
 </dd>
@@ -988,6 +1054,62 @@ client.cdr.search_cdrs(
 <dd>
 
 **min_duration:** `Integer` — Minimum call duration in seconds. Excludes calls shorter than this value.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sip_call_id:** `String` — Filter by the SIP Call-ID of the call (matches the cdr's sip_call_id field).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bridge_uuid:** `String` — Filter by the UUID of the bridged leg (matches the cdr's bridge_uuid field).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_cause:** `String` — Filter by telephony hangup cause, e.g. NORMAL_CLEARING.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_disposition:** `String` — Filter by how the leg was released, e.g. send_refuse.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**context:** `String` — Filter by the call context, e.g. sip-trunking.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**campaign_id:** `String` — Filter by the campaign identifier associated with the call.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `String` — Free-text search across CDR fields (numbers, IDs, etc.).
     
 </dd>
 </dl>
@@ -3294,6 +3416,99 @@ client.phone_numbers.unassign_number_from_trunk(
 <dd>
 
 **phone_number:** `String` — The phone number to unassign, URL-encoded (use %2B instead of +).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `Vobiz::PhoneNumbers::RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.phone_numbers.<a href="/lib/vobiz/phone_numbers/client.rb">get_number_health</a>(auth_id, e164) -> Vobiz::PhoneNumbers::Types::GetNumberHealthResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the health & analytics dashboard for one of your numbers: current
+status, spam flag, and call metrics over the selected window (total and
+answered calls, answer rate, minutes, average duration) plus a per-period
+time series of snapshots.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```ruby
+client.phone_numbers.get_number_health(
+  auth_id: "MA_XXXXXX",
+  e164: "%2B919876543210",
+  days: 30
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**auth_id:** `String` — Your account Auth ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**e164:** `String` — The number in E.164, URL-encoded (use %2B instead of +).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**granularity:** `Vobiz::PhoneNumbers::Types::GetNumberHealthRequestGranularity` — Snapshot granularity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**days:** `Integer` — Size of the window (in days) for the summary and snapshots.
     
 </dd>
 </dl>
