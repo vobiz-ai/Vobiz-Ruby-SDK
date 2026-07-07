@@ -13,6 +13,10 @@ module Vobiz
         field :max_concurrent_calls, -> { Integer }, optional: false, nullable: false
 
         field :enabled, -> { Internal::Types::Boolean }, optional: false, nullable: false
+
+        field :webhook_url, -> { String }, optional: true, nullable: false
+
+        field :webhook_method, -> { Vobiz::Trunks::Types::UpdateTrunkRequestWebhookMethod }, optional: true, nullable: false
       end
     end
   end

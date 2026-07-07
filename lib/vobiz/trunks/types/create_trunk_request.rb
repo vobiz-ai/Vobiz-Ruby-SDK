@@ -11,6 +11,10 @@ module Vobiz
         field :trunk_type, -> { String }, optional: false, nullable: false
 
         field :max_concurrent_calls, -> { Integer }, optional: false, nullable: false
+
+        field :webhook_url, -> { String }, optional: true, nullable: false
+
+        field :webhook_method, -> { Vobiz::Trunks::Types::CreateTrunkRequestWebhookMethod }, optional: true, nullable: false
       end
     end
   end
