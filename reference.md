@@ -3797,10 +3797,16 @@ Create a new SIP trunk for inbound or outbound calling.
 ```ruby
 client.trunks.create_trunk(
   auth_id: "MA_XXXXXX",
-  name: "My Outbound Trunk",
-  trunk_type: "OUTBOUND",
-  max_concurrent_calls: 10,
-  webhook_url: "https://your-app.example.com/trunk-webhook",
+  name: "Retell AI SIP",
+  trunk_direction: "outbound",
+  transport: "udp",
+  concurrent_calls_limit: 50,
+  cps_limit: 15,
+  credential_uuid: "b1e2...",
+  ipacl_uuid: "c3d4...",
+  recording: true,
+  enable_transcription: true,
+  webhook_url: "https://example.com/vobiz/webhook",
   webhook_method: "POST"
 )
 ```
@@ -3825,7 +3831,7 @@ client.trunks.create_trunk(
 <dl>
 <dd>
 
-**name:** `String` 
+**name:** `String` — Trunk name.
     
 </dd>
 </dl>
@@ -3833,7 +3839,7 @@ client.trunks.create_trunk(
 <dl>
 <dd>
 
-**trunk_type:** `String` 
+**trunk_direction:** `Vobiz::Trunks::Types::CreateTrunkRequestTrunkDirection` — Direction of the trunk — **`inbound` or `outbound` only** (a trunk is one direction, not both).
     
 </dd>
 </dl>
@@ -3841,7 +3847,127 @@ client.trunks.create_trunk(
 <dl>
 <dd>
 
-**max_concurrent_calls:** `Integer` 
+**trunk_status:** `Vobiz::Trunks::Types::CreateTrunkRequestTrunkStatus` — Trunk status — `enabled` or `disabled` (note: not `active`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**secure:** `Internal::Types::Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trunk_domain:** `String` — SIP domain. Auto-generated as `{first8ofUUID}.sip.vobiz.ai` if omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transport:** `Vobiz::Trunks::Types::CreateTrunkRequestTransport` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**inbound_destination:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**concurrent_calls_limit:** `Integer` — Stored on the trunk. The **enforced** concurrency limit is account-level (account base + channel subscriptions), not this field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cps_limit:** `Integer` — Stored on the trunk. The **enforced** CPS is account-level, not this field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credential_uuid:** `String` — Attach an existing SIP credential (username / password / realm) by UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ipacl_uuid:** `String` — Attach an existing IP access-control list (IP-based auth) by UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_uri_uuid:** `String` — Primary origination URI UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_uri_uuid:** `String` — Fallback origination URI UUID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recording:** `Internal::Types::Boolean` — Enable call recording.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_transcription:** `Internal::Types::Boolean` — Auto-transcribe recordings when `recording=true`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pii_redaction:** `Internal::Types::Boolean` — Redact PII from transcriptions.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pii_entity_types:** `String` — Comma-separated list of entity types to redact.
     
 </dd>
 </dl>
@@ -3851,9 +3977,10 @@ client.trunks.create_trunk(
 
 **webhook_url:** `String` 
 
-HTTPS URL to receive real-time call-event webhooks (`CallInitiated`
-and `Hangup`) for this trunk. Max 500 characters; private, localhost,
-and cloud-metadata IPs are blocked. See [Trunk Webhooks](/trunks/webhook).
+Customer webhook for call-admission events (`CallInitiated` / `Hangup`).
+Must be a valid **public** http/https URL. SSRF-validated — localhost,
+private (RFC1918), and cloud-metadata (`169.254.169.254`) URLs are
+rejected with `invalid webhook_url`. See [Trunk Webhooks](/trunks/webhook).
     
 </dd>
 </dl>
@@ -3861,7 +3988,39 @@ and cloud-metadata IPs are blocked. See [Trunk Webhooks](/trunks/webhook).
 <dl>
 <dd>
 
-**webhook_method:** `Vobiz::Trunks::Types::CreateTrunkRequestWebhookMethod` — HTTP method for the webhook callback. Defaults to `POST`.
+**webhook_method:** `Vobiz::Trunks::Types::CreateTrunkRequestWebhookMethod` — HTTP method for the webhook callback.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recording_webhook_enabled:** `Internal::Types::Boolean` — Fire a `recording.completed` webhook to `webhook_url` after a recording is saved.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**username:** `String` — Deprecated — use `credential_uuid`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `String` — Deprecated — use `credential_uuid`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip_whitelist:** `Internal::Types::Array[String]` — Deprecated — use `ipacl_uuid`.
     
 </dd>
 </dl>
@@ -3983,10 +4142,7 @@ Update a SIP trunk's name, configuration, or status.
 ```ruby
 client.trunks.update_trunk(
   auth_id: "MA_XXXXXX",
-  trunk_id: "trunk_id",
-  name: "name",
-  max_concurrent_calls: 1,
-  enabled: true
+  trunk_id: "trunk_id"
 )
 ```
 </dd>
@@ -4026,7 +4182,7 @@ client.trunks.update_trunk(
 <dl>
 <dd>
 
-**max_concurrent_calls:** `Integer` 
+**trunk_direction:** `Vobiz::Trunks::Types::UpdateTrunkRequestTrunkDirection` — Direction of the trunk — `inbound` or `outbound` only.
     
 </dd>
 </dl>
@@ -4034,7 +4190,7 @@ client.trunks.update_trunk(
 <dl>
 <dd>
 
-**enabled:** `Internal::Types::Boolean` 
+**trunk_status:** `Vobiz::Trunks::Types::UpdateTrunkRequestTrunkStatus` 
     
 </dd>
 </dl>
@@ -4042,7 +4198,7 @@ client.trunks.update_trunk(
 <dl>
 <dd>
 
-**webhook_url:** `String` — HTTPS URL for real-time call-event webhooks (`CallInitiated`, `Hangup`). See [Trunk Webhooks](/trunks/webhook).
+**secure:** `Internal::Types::Boolean` 
     
 </dd>
 </dl>
@@ -4050,7 +4206,135 @@ client.trunks.update_trunk(
 <dl>
 <dd>
 
-**webhook_method:** `Vobiz::Trunks::Types::UpdateTrunkRequestWebhookMethod` — HTTP method for the webhook callback. Defaults to `POST`.
+**trunk_domain:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**transport:** `Vobiz::Trunks::Types::UpdateTrunkRequestTransport` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**inbound_destination:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**concurrent_calls_limit:** `Integer` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cps_limit:** `Integer` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**credential_uuid:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ipacl_uuid:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**primary_uri_uuid:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fallback_uri_uuid:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recording:** `Internal::Types::Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**enable_transcription:** `Internal::Types::Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pii_redaction:** `Internal::Types::Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pii_entity_types:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**webhook_url:** `String` — Customer webhook for call-admission events (`CallInitiated` / `Hangup`). Public http/https URL; SSRF-validated. See [Trunk Webhooks](/trunks/webhook).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**webhook_method:** `Vobiz::Trunks::Types::UpdateTrunkRequestWebhookMethod` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recording_webhook_enabled:** `Internal::Types::Boolean` 
     
 </dd>
 </dl>
