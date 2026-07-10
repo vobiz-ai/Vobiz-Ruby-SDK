@@ -98,6 +98,7 @@ module Vobiz
       # @option params [String] :auth_id
       # @option params [String, nil] :country
       # @option params [String, nil] :search
+      # @option params [String, nil] :exclude
       # @option params [Integer, nil] :page
       # @option params [Integer, nil] :per_page
       #
@@ -107,6 +108,7 @@ module Vobiz
         query_params = {}
         query_params["country"] = params[:country] if params.key?(:country)
         query_params["search"] = params[:search] if params.key?(:search)
+        query_params["exclude"] = params[:exclude] if params.key?(:exclude)
         query_params["page"] = params[:page] if params.key?(:page)
         query_params["per_page"] = params[:per_page] if params.key?(:per_page)
 

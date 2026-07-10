@@ -10,6 +10,8 @@ module Vobiz
 
         field :search, -> { String }, optional: true, nullable: false
 
+        field :exclude, -> { String }, optional: true, nullable: false
+
         field :page, -> { Integer }, optional: true, nullable: false
 
         field :per_page, -> { Integer }, optional: true, nullable: false
