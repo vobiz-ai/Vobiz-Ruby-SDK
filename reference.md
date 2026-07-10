@@ -3122,7 +3122,8 @@ are returned. These numbers are ready to be purchased.
 ```ruby
 client.phone_numbers.list_inventory_numbers(
   auth_id: "MA_XXXXXX",
-  country: "IN"
+  country: "IN",
+  exclude: "9180,9192"
 )
 ```
 </dd>
