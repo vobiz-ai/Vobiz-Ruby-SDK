@@ -6,9 +6,11 @@ module Vobiz
       class ListNumbersRequest < Internal::Types::Model
         field :auth_id, -> { String }, optional: false, nullable: false
 
-        field :limit, -> { Integer }, optional: true, nullable: false
+        field :page, -> { Integer }, optional: true, nullable: false
 
-        field :offset, -> { Integer }, optional: true, nullable: false
+        field :per_page, -> { Integer }, optional: true, nullable: false
+
+        field :search, -> { String }, optional: true, nullable: false
       end
     end
   end

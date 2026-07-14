@@ -20,15 +20,17 @@ module Vobiz
       # @option request_options [Hash{String => Object}] :additional_body_parameters
       # @option request_options [Integer] :timeout_in_seconds
       # @option params [String] :auth_id
-      # @option params [Integer, nil] :limit
-      # @option params [Integer, nil] :offset
+      # @option params [Integer, nil] :page
+      # @option params [Integer, nil] :per_page
+      # @option params [String, nil] :search
       #
       # @return [Vobiz::PhoneNumbers::Types::ListNumbersResponse]
       def list_numbers(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         query_params = {}
-        query_params["limit"] = params[:limit] if params.key?(:limit)
-        query_params["offset"] = params[:offset] if params.key?(:offset)
+        query_params["page"] = params[:page] if params.key?(:page)
+        query_params["per_page"] = params[:per_page] if params.key?(:per_page)
+        query_params["search"] = params[:search] if params.key?(:search)
 
         request = Vobiz::Internal::JSON::Request.new(
           base_url: request_options[:base_url],

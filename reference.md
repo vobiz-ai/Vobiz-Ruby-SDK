@@ -2967,7 +2967,10 @@ List all phone numbers on your account.
 <dd>
 
 ```ruby
-client.phone_numbers.list_numbers(auth_id: "MA_XXXXXX")
+client.phone_numbers.list_numbers(
+  auth_id: "MA_XXXXXX",
+  search: "+919876543210"
+)
 ```
 </dd>
 </dl>
@@ -2990,7 +2993,7 @@ client.phone_numbers.list_numbers(auth_id: "MA_XXXXXX")
 <dl>
 <dd>
 
-**limit:** `Integer` 
+**page:** `Integer` — Page number, starting at 1
     
 </dd>
 </dl>
@@ -2998,7 +3001,15 @@ client.phone_numbers.list_numbers(auth_id: "MA_XXXXXX")
 <dl>
 <dd>
 
-**offset:** `Integer` 
+**per_page:** `Integer` — Number of phone numbers to return per page
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**search:** `String` — Filter by phone number. Include the country code and URL-encode a leading plus sign.
     
 </dd>
 </dl>
