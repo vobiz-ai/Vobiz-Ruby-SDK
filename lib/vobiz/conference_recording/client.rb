@@ -10,7 +10,8 @@ module Vobiz
         @client = client
       end
 
-      # Begin recording all audio in a conference room.
+      # Queue recording for all audio in a conference room. The response does not include a recording ID or download
+      # URL.
       #
       # @param request_options [Hash]
       # @param params [Vobiz::ConferenceRecording::Types::StartConferenceRecordingRequest]
@@ -22,7 +23,7 @@ module Vobiz
       # @option params [String] :auth_id
       # @option params [String] :conference_name
       #
-      # @return [untyped]
+      # @return [Object]
       def start_conference_recording(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         request_data = Vobiz::ConferenceRecording::Types::StartConferenceRecordingRequest.new(params).to_h

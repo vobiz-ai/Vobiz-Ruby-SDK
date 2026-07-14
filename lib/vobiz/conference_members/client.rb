@@ -23,7 +23,7 @@ module Vobiz
       # @option params [String] :conference_name
       # @option params [String] :member_id
       #
-      # @return [untyped]
+      # @return [Object]
       def mute_member(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         request = Vobiz::Internal::JSON::Request.new(

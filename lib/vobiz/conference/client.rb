@@ -10,7 +10,7 @@ module Vobiz
         @client = client
       end
 
-      # Remove a specific participant from a conference call.
+      # Remove one or more participants from a conference while allowing their XML flow to continue.
       #
       # @param request_options [Hash]
       # @param params [Hash]
@@ -44,7 +44,9 @@ module Vobiz
         raise error_class.new(response.body, code: code)
       end
 
-      # Disconnect a specific member from a conference.
+      # Terminate one or more active conference member calls. A normal active-member request disconnects the member. If
+      # a member was kicked, continued its XML flow, and rejoined with the same numeric member ID, confirm removal
+      # through conference exit or call hangup callbacks.
       #
       # @param request_options [Hash]
       # @param params [Hash]
@@ -91,7 +93,7 @@ module Vobiz
       # @option params [String] :conference_name
       # @option params [String] :member_id
       #
-      # @return [untyped]
+      # @return [Object]
       def play_audio_member(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         request_data = Vobiz::Conference::Types::PlayAudioMemberRequest.new(params).to_h
@@ -164,7 +166,7 @@ module Vobiz
       # @option params [String] :conference_name
       # @option params [String] :member_id
       #
-      # @return [untyped]
+      # @return [Object]
       def deaf_member(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         request = Vobiz::Internal::JSON::Request.new(

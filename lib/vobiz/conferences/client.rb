@@ -10,7 +10,9 @@ module Vobiz
         @client = client
       end
 
-      # Retrieve all active conference rooms on the account.
+      # Retrieve conference room names reported by the API. An empty array is inconclusive and can occur while
+      # conferences are active. Maintain your own room registry for authoritative discovery, billing, cleanup, and
+      # destructive workflows.
       #
       # @param request_options [Hash]
       # @param params [Hash]
@@ -76,7 +78,8 @@ module Vobiz
         raise error_class.new(response.body, code: code)
       end
 
-      # Get details and member list of a specific conference room.
+      # Retrieve a specific conference room. A live conference can currently return a 200 response with an error payload
+      # instead of conference details.
       #
       # @param request_options [Hash]
       # @param params [Hash]
@@ -88,7 +91,7 @@ module Vobiz
       # @option params [String] :auth_id
       # @option params [String] :conference_name
       #
-      # @return [Object]
+      # @return [Vobiz::Conferences::Types::GetConferenceResponse]
       def get_conference(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         request = Vobiz::Internal::JSON::Request.new(
@@ -103,10 +106,12 @@ module Vobiz
           raise Vobiz::Errors::TimeoutError
         end
         code = response.code.to_i
-        return if code.between?(200, 299)
-
-        error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
-        raise error_class.new(response.body, code: code)
+        if code.between?(200, 299)
+          Vobiz::Conferences::Types::GetConferenceResponse.load(response.body)
+        else
+          error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
+          raise error_class.new(response.body, code: code)
+        end
       end
 
       # Terminate a specific conference room and disconnect all members.
