@@ -333,6 +333,10 @@ module Vobiz
         end
       end
 
+      # Returns the authenticated partner's KYC sessions. Filter the list by
+      # session status or customer account, and use `page` and `size` to
+      # paginate the results.
+      #
       # @param request_options [Hash]
       # @param params [Hash]
       # @option request_options [String] :base_url
@@ -409,6 +413,9 @@ module Vobiz
         raise error_class.new(response.body, code: code)
       end
 
+      # Returns the current status and available details for one KYC session
+      # owned by the authenticated partner.
+      #
       # @param request_options [Hash]
       # @param params [Hash]
       # @option request_options [String] :base_url
