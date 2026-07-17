@@ -10,7 +10,7 @@ module Vobiz
         @client = client
       end
 
-      # Mock PAN verification — never hits the provider. Magic `pan` inputs:
+      # Mock PAN verification - never hits the provider. Magic `pan` inputs:
       #
       # | Input | Outcome |
       # |---|---|
@@ -251,7 +251,7 @@ module Vobiz
       end
 
       # Promotes the most recent **pending** mock verification of the given
-      # type to a terminal outcome — this drives the async (`TESTPENDING…`)
+      # type to a terminal outcome - this drives the async (`TESTPENDING…`)
       # path without webhooks. `verification_type` ∈ `pan | aadhaar | gst | cin`;
       # `outcome` ∈ `verified | failed`.
       #

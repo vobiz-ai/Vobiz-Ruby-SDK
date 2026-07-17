@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# vobizxml — build VobizXML call-control documents in Ruby.
+# vobizxml - build VobizXML call-control documents in Ruby.
 #
 # Mirrors the Python (`vobiz.vobizxml`) and Node (`@vobiz/sdk` `vobizxml`) builders
 # and emits XML byte-identical to them. Single self-contained file so it works as
