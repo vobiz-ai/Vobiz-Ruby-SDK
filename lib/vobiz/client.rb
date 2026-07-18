@@ -2,17 +2,17 @@
 
 module Vobiz
   class Client
-    # @param api_key [String]
+    # @param token [String]
     # @param base_url [String, nil]
     # @param max_retries [Integer]
     #
     # @return [void]
-    def initialize(api_key:, base_url: nil, max_retries: 2)
+    def initialize(token:, base_url: nil, max_retries: 2)
       @raw_client = Vobiz::Internal::Http::RawClient.new(
         base_url: base_url || Vobiz::Environment::PRODUCTION,
         headers: {
           "X-Fern-Language" => "Ruby",
-          "X-Auth-ID" => api_key.to_s
+          Authorization: "Bearer #{token}"
         },
         max_retries: max_retries
       )

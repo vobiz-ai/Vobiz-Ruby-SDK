@@ -116,6 +116,170 @@ client.account.get_concurrency(auth_id: "MA_XXXXXX")
 </dl>
 </details>
 
+<details><summary><code>client.account.<a href="/lib/vobiz/account/client.rb">preview_channel_pricing</a>(auth_id) -> Vobiz::Types::ChannelPricingPreview</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Calculate the monthly price for CPS or concurrent-call capacity without purchasing capacity or debiting the account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```ruby
+client.account.preview_channel_pricing(
+  auth_id: "MA_XXXX",
+  resource_type: "concurrent_calls",
+  quantity: 30
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**auth_id:** `String` — Target account Auth ID. An account can preview only its own pricing; administrators may act for another account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**resource_type:** `Vobiz::Types::CapacityResourceType` — Capacity type to price.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quantity:** `Integer` — Capacity quantity to price. Pricing-tier block and quantity rules also apply.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `Vobiz::Account::RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.account.<a href="/lib/vobiz/account/client.rb">create_channel_subscription</a>(auth_id, request) -> Vobiz::Types::ChannelSubscription</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Purchase recurring CPS or concurrent-call capacity. A successful request immediately debits the first monthly charge and activates a subscription that renews every 30 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```ruby
+client.account.create_channel_subscription(
+  auth_id: "MA_XXXX",
+  resource_type: "concurrent_calls",
+  quantity: 30
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**auth_id:** `String` — Target account Auth ID. An account can purchase only for itself; administrators may act for another account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**resource_type:** `Vobiz::Types::CapacityResourceType` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quantity:** `Integer` — Capacity quantity to purchase. Pricing-tier block and quantity rules also apply.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `Vobiz::Account::RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Balance
 <details><summary><code>client.balance.<a href="/lib/vobiz/balance/client.rb">get_balance</a>(auth_id, currency) -> Vobiz::Balance::Types::GetBalanceResponse</code></summary>
 <dl>

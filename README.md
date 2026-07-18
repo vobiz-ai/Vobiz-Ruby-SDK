@@ -29,16 +29,15 @@ Instantiate and use the client with the following:
 require "vobiz"
 
 client = Vobiz::Client.new(
-  api_key: "<value>",
+  token: "<token>",
+  auth_id: "<X-Auth-ID>",
   auth_token: "<X-Auth-Token>"
 )
 
-client.calls.make_call(
-  auth_id: "MA_XXXXXX",
-  from: "14155551234",
-  to: "+919876543210",
-  answer_url: "https://example.com/answer",
-  answer_method: "POST"
+client.account.create_channel_subscription(
+  auth_id: "MA_XXXX",
+  resource_type: "concurrent_calls",
+  quantity: 30
 )
 ```
 
@@ -75,7 +74,7 @@ client = Vobiz::Client.new(
 )
 
 begin
-    result = client.calls.make_call
+    result = client.account.create_channel_subscription
 rescue Vobiz::Errors::TimeoutError
     puts "API didn't respond before our timeout elapsed"
 rescue Vobiz::Errors::ServiceUnavailableError
@@ -125,7 +124,7 @@ The SDK defaults to a 60 second timeout. Use the `timeout` option to configure t
 ```ruby
 require "vobiz"
 
-response = client.calls.make_call(
+response = client.account.create_channel_subscription(
     ...,
     timeout: 30  # 30 second timeout
 )
@@ -138,7 +137,7 @@ If you would like to send additional headers as part of the request, use the `ad
 ```ruby
 require "vobiz"
 
-response = client.calls.make_call(
+response = client.account.create_channel_subscription(
     ...,
     request_options: {
         additional_headers: {
@@ -155,7 +154,7 @@ If you would like to send additional query parameters as part of the request, us
 ```ruby
 require "vobiz"
 
-response = client.calls.make_call(
+response = client.account.create_channel_subscription(
     ...,
     request_options: {
         additional_query_parameters: {
