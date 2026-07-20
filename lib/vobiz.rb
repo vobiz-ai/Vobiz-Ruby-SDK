@@ -90,6 +90,7 @@ require_relative "vobiz/sub_account_kyc_test_mode/types/mock_finalize_pending_ky
 require_relative "vobiz/phone_numbers/types/list_numbers_response_items_item_capabilities"
 require_relative "vobiz/phone_numbers/types/list_numbers_response_items_item"
 require_relative "vobiz/phone_numbers/types/list_numbers_response"
+require_relative "vobiz/phone_numbers/types/unrent_number_response"
 require_relative "vobiz/phone_numbers/types/cancel_number_release_response_status"
 require_relative "vobiz/phone_numbers/types/cancel_number_release_response_refund_status"
 require_relative "vobiz/phone_numbers/types/cancel_number_release_response"

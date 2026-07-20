@@ -69,7 +69,7 @@ module Vobiz
       # @option params [String] :e164
       # @option params [Boolean, nil] :immediate
       #
-      # @return [untyped]
+      # @return [Vobiz::PhoneNumbers::Types::UnrentNumberResponse]
       def unrent_number(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
         query_params = {}
@@ -88,16 +88,18 @@ module Vobiz
           raise Vobiz::Errors::TimeoutError
         end
         code = response.code.to_i
-        return if code.between?(200, 299)
-
-        error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
-        raise error_class.new(response.body, code: code)
+        if code.between?(200, 299)
+          Vobiz::PhoneNumbers::Types::UnrentNumberResponse.load(response.body)
+        else
+          error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
+          raise error_class.new(response.body, code: code)
+        end
       end
 
       # Cancel a pending number release during the 24-hour cooldown. The number is
       # restored to `active`, the cooldown timer is cleared, and the release fee is
-      # refunded. Any trunk or voice application detached by the release is not
-      # re-attached automatically.
+      # refunded in full to the account balance. Any trunk or voice application
+      # detached by the release is not re-attached automatically.
       #
       # @param request_options [Hash]
       # @param params [Hash]

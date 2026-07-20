@@ -3193,7 +3193,7 @@ client.phone_numbers.list_numbers(
 </dl>
 </details>
 
-<details><summary><code>client.phone_numbers.<a href="/lib/vobiz/phone_numbers/client.rb">unrent_number</a>(auth_id, e164) -> </code></summary>
+<details><summary><code>client.phone_numbers.<a href="/lib/vobiz/phone_numbers/client.rb">unrent_number</a>(auth_id, e164) -> Vobiz::PhoneNumbers::Types::UnrentNumberResponse</code></summary>
 <dl>
 <dd>
 
@@ -3225,7 +3225,7 @@ cannot be cancelled.
 ```ruby
 client.phone_numbers.unrent_number(
   auth_id: "MA_XXXXXX",
-  e164: "919876543210"
+  e164: "%2B919876543210"
 )
 ```
 </dd>
@@ -3249,7 +3249,7 @@ client.phone_numbers.unrent_number(
 <dl>
 <dd>
 
-**e164:** `String` — Phone number in E.164 format (without the +)
+**e164:** `String` — The URL-encoded phone number in E.164 format. Encode `+` as `%2B`.
     
 </dd>
 </dl>
@@ -3291,8 +3291,8 @@ client.phone_numbers.unrent_number(
 
 Cancel a pending number release during the 24-hour cooldown. The number is
 restored to `active`, the cooldown timer is cleared, and the release fee is
-refunded. Any trunk or voice application detached by the release is not
-re-attached automatically.
+refunded in full to the account balance. Any trunk or voice application
+detached by the release is not re-attached automatically.
 </dd>
 </dl>
 </dd>

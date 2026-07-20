@@ -8,7 +8,11 @@ module Vobiz
 
         field :status, -> { Vobiz::PhoneNumbers::Types::CancelNumberReleaseResponseStatus }, optional: false, nullable: false
 
-        field :refund_status, -> { Vobiz::PhoneNumbers::Types::CancelNumberReleaseResponseRefundStatus }, optional: false, nullable: false
+        field :currency, -> { String }, optional: true, nullable: false
+
+        field :refund_amount, -> { Integer }, optional: true, nullable: false
+
+        field :refund_status, -> { Vobiz::PhoneNumbers::Types::CancelNumberReleaseResponseRefundStatus }, optional: true, nullable: false
 
         field :refund_error, -> { String }, optional: true, nullable: false
       end
