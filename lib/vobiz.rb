@@ -3,7 +3,6 @@
 require "json"
 require "net/http"
 require "securerandom"
-require "base64"
 
 require_relative "vobiz/internal/json/serializable"
 require_relative "vobiz/internal/types/type"
