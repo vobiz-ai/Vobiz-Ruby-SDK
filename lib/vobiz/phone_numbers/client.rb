@@ -53,7 +53,10 @@ module Vobiz
         end
       end
 
-      # Release a phone number from your account.
+      # Release a phone number from your account. By default, the number enters
+      # `pending_release` for a 24-hour cooldown. You can cancel the release during
+      # that window. Set `immediate=true` to skip the cooldown; an immediate release
+      # cannot be cancelled.
       #
       # @param request_options [Hash]
       # @param params [Hash]
@@ -64,14 +67,19 @@ module Vobiz
       # @option request_options [Integer] :timeout_in_seconds
       # @option params [String] :auth_id
       # @option params [String] :e164
+      # @option params [Boolean, nil] :immediate
       #
       # @return [untyped]
       def unrent_number(request_options: {}, **params)
         params = Vobiz::Internal::Types::Utils.normalize_keys(params)
+        query_params = {}
+        query_params["immediate"] = params[:immediate] if params.key?(:immediate)
+
         request = Vobiz::Internal::JSON::Request.new(
           base_url: request_options[:base_url],
           method: "DELETE",
           path: "api/v1/Account/#{URI.encode_uri_component(params[:auth_id].to_s)}/numbers/#{URI.encode_uri_component(params[:e164].to_s)}",
+          query: query_params,
           request_options: request_options
         )
         begin
@@ -84,6 +92,44 @@ module Vobiz
 
         error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
         raise error_class.new(response.body, code: code)
+      end
+
+      # Cancel a pending number release during the 24-hour cooldown. The number is
+      # restored to `active`, the cooldown timer is cleared, and the release fee is
+      # refunded. Any trunk or voice application detached by the release is not
+      # re-attached automatically.
+      #
+      # @param request_options [Hash]
+      # @param params [Hash]
+      # @option request_options [String] :base_url
+      # @option request_options [Hash{String => Object}] :additional_headers
+      # @option request_options [Hash{String => Object}] :additional_query_parameters
+      # @option request_options [Hash{String => Object}] :additional_body_parameters
+      # @option request_options [Integer] :timeout_in_seconds
+      # @option params [String] :account_id
+      # @option params [String] :e164
+      #
+      # @return [Vobiz::PhoneNumbers::Types::CancelNumberReleaseResponse]
+      def cancel_number_release(request_options: {}, **params)
+        params = Vobiz::Internal::Types::Utils.normalize_keys(params)
+        request = Vobiz::Internal::JSON::Request.new(
+          base_url: request_options[:base_url],
+          method: "POST",
+          path: "api/v1/account/#{URI.encode_uri_component(params[:account_id].to_s)}/numbers/#{URI.encode_uri_component(params[:e164].to_s)}/cancel-release",
+          request_options: request_options
+        )
+        begin
+          response = @client.send(request)
+        rescue Net::HTTPRequestTimeout
+          raise Vobiz::Errors::TimeoutError
+        end
+        code = response.code.to_i
+        if code.between?(200, 299)
+          Vobiz::PhoneNumbers::Types::CancelNumberReleaseResponse.load(response.body)
+        else
+          error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
+          raise error_class.new(response.body, code: code)
+        end
       end
 
       # Browse available phone numbers in inventory that are not assigned to

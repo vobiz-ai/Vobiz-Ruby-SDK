@@ -2,18 +2,20 @@
 
 module Vobiz
   class Client
-    # @param token [String]
+    # @param username [String]
+    # @param password [String]
     # @param base_url [String, nil]
     # @param max_retries [Integer]
     #
     # @return [void]
-    def initialize(token:, base_url: nil, max_retries: 2)
+    def initialize(username:, password:, base_url: nil, max_retries: 2)
+      headers = {
+        "X-Fern-Language" => "Ruby"
+      }
+      headers["Authorization"] = "Basic #{Base64.strict_encode64("#{username}:#{password}")}"
       @raw_client = Vobiz::Internal::Http::RawClient.new(
         base_url: base_url || Vobiz::Environment::PRODUCTION,
-        headers: {
-          "X-Fern-Language" => "Ruby",
-          Authorization: "Bearer #{token}"
-        },
+        headers: headers,
         max_retries: max_retries
       )
     end
