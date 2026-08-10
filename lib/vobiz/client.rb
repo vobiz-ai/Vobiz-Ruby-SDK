@@ -118,6 +118,11 @@ module Vobiz
       @recordings ||= Vobiz::Recordings::Client.new(client: @raw_client)
     end
 
+    # @return [Vobiz::BulkOperations::Client]
+    def bulk_operations
+      @bulk_operations ||= Vobiz::BulkOperations::Client.new(client: @raw_client)
+    end
+
     # @return [Vobiz::Credentials::Client]
     def credentials
       @credentials ||= Vobiz::Credentials::Client.new(client: @raw_client)
