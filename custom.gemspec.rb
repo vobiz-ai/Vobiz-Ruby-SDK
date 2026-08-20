@@ -7,10 +7,12 @@
 # need to add it to the .fernignore file to prevent your changes from being overwritten.
 
 def add_custom_gemspec_data(spec)
-  # Example custom configurations (uncomment and modify as needed)
-
-  # spec.authors = ["Your name"]
-  # spec.email = ["your.email@example.com"]
-  # spec.homepage = "https://github.com/your-org/vobiz-ruby"
-  # spec.license = "Your license"
+  spec.email = ["support@vobiz.ai"]
+  spec.homepage = "https://github.com/vobiz-ai/Vobiz-Ruby-SDK"
+  spec.metadata = spec.metadata.merge(
+    "homepage_uri" => "https://vobiz.ai",
+    "source_code_uri" => "https://github.com/vobiz-ai/Vobiz-Ruby-SDK",
+    "documentation_uri" => "https://docs.vobiz.ai",
+    "bug_tracker_uri" => "https://github.com/vobiz-ai/Vobiz-Ruby-SDK/issues"
+  )
 end
