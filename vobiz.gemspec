@@ -11,7 +11,6 @@ Gem::Specification.new do |spec|
   spec.version = Vobiz::VERSION
   spec.summary = "Ruby client library for the Vobiz API"
   spec.description = "The Vobiz Ruby library provides convenient access to the Vobiz API from Ruby."
-  spec.license = "MIT"
   spec.required_ruby_version = ">= 3.3.0"
   spec.metadata["rubygems_mfa_required"] = "true"
 
