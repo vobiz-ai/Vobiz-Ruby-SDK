@@ -2686,7 +2686,7 @@ browser is sent to this URL.
 <dl>
 <dd>
 
-**webhook_url:** `String` — HTTPS endpoint VoBiz POSTs the KYC result to. Omit it and no callbacks are sent.
+**webhook_url:** `String` — HTTPS endpoint Vobiz POSTs the KYC result to. Omit it and no callbacks are sent.
     
 </dd>
 </dl>
@@ -9389,7 +9389,7 @@ client.partner_api.list_customer_accounts
 <dl>
 <dd>
 
-Creates a new customer sub-account under your partner account. VoBiz
+Creates a new customer sub-account under your partner account. Vobiz
 emails the customer their login credentials and (separately) a KYC link
 via the kyc-sessions endpoint.
 </dd>
@@ -9994,7 +9994,7 @@ client.partner_api.list_kyc_sessions
 <dl>
 <dd>
 
-Triggers VoBiz to email a KYC link to the customer. KYC is OTP-based
+Triggers Vobiz to email a KYC link to the customer. KYC is OTP-based
 (PAN + Aadhaar via DigiLocker for individuals, PAN + GSTIN for
 companies). No document uploads required.
 </dd>
@@ -10064,7 +10064,7 @@ browser is sent to this URL with query params `session_id`, `status`, `auth_id`.
 <dl>
 <dd>
 
-**webhook_url:** `String` — VoBiz POSTs the KYC result here.
+**webhook_url:** `String` — Vobiz POSTs the KYC result here.
     
 </dd>
 </dl>
