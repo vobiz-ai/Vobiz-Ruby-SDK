@@ -29,8 +29,7 @@ Instantiate and use the client with the following:
 require "vobiz"
 
 client = Vobiz::Client.new(
-  token: "<token>",
-  auth_id: "<X-Auth-ID>",
+  api_key: "<value>",
   auth_token: "<X-Auth-Token>"
 )
 
