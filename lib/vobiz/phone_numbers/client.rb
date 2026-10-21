@@ -301,6 +301,85 @@ module Vobiz
         raise error_class.new(response.body, code: code)
       end
 
+      # Link a phone number to a voice application. Once linked, inbound
+      # calls to that number fetch VobizXML from the application's
+      # `answer_url`. A number routes through either an application or a
+      # SIP trunk, not both: unassign the number from its trunk first
+      # (`DELETE /api/v1/Account/{auth_id}/numbers/{phone_number}/assign`).
+      # URL-encode the phone number (use `%2B` instead of `+`).
+      #
+      # @param request_options [Hash]
+      # @param params [Vobiz::PhoneNumbers::Types::LinkNumberToApplicationRequest]
+      # @option request_options [String] :base_url
+      # @option request_options [Hash{String => Object}] :additional_headers
+      # @option request_options [Hash{String => Object}] :additional_query_parameters
+      # @option request_options [Hash{String => Object}] :additional_body_parameters
+      # @option request_options [Integer] :timeout_in_seconds
+      # @option params [String] :auth_id
+      # @option params [String] :e164
+      #
+      # @return [untyped]
+      def link_number_to_application(request_options: {}, **params)
+        params = Vobiz::Internal::Types::Utils.normalize_keys(params)
+        request_data = Vobiz::PhoneNumbers::Types::LinkNumberToApplicationRequest.new(params).to_h
+        non_body_param_names = %w[auth_id e164]
+        body = request_data.except(*non_body_param_names)
+
+        request = Vobiz::Internal::JSON::Request.new(
+          base_url: request_options[:base_url],
+          method: "POST",
+          path: "api/v1/Account/#{URI.encode_uri_component(params[:auth_id].to_s)}/numbers/#{URI.encode_uri_component(params[:e164].to_s)}/application",
+          body: body,
+          request_options: request_options
+        )
+        begin
+          response = @client.send(request)
+        rescue Net::HTTPRequestTimeout
+          raise Vobiz::Errors::TimeoutError
+        end
+        code = response.code.to_i
+        return if code.between?(200, 299)
+
+        error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
+        raise error_class.new(response.body, code: code)
+      end
+
+      # Remove the link between a phone number and its voice application.
+      # The number stays in your account inventory but inbound calls no
+      # longer fetch VobizXML from that application.
+      # URL-encode the phone number (use `%2B` instead of `+`).
+      #
+      # @param request_options [Hash]
+      # @param params [Hash]
+      # @option request_options [String] :base_url
+      # @option request_options [Hash{String => Object}] :additional_headers
+      # @option request_options [Hash{String => Object}] :additional_query_parameters
+      # @option request_options [Hash{String => Object}] :additional_body_parameters
+      # @option request_options [Integer] :timeout_in_seconds
+      # @option params [String] :auth_id
+      # @option params [String] :e164
+      #
+      # @return [untyped]
+      def unlink_number_from_application(request_options: {}, **params)
+        params = Vobiz::Internal::Types::Utils.normalize_keys(params)
+        request = Vobiz::Internal::JSON::Request.new(
+          base_url: request_options[:base_url],
+          method: "DELETE",
+          path: "api/v1/Account/#{URI.encode_uri_component(params[:auth_id].to_s)}/numbers/#{URI.encode_uri_component(params[:e164].to_s)}/application",
+          request_options: request_options
+        )
+        begin
+          response = @client.send(request)
+        rescue Net::HTTPRequestTimeout
+          raise Vobiz::Errors::TimeoutError
+        end
+        code = response.code.to_i
+        return if code.between?(200, 299)
+
+        error_class = Vobiz::Errors::ResponseError.subclass_for_code(code)
+        raise error_class.new(response.body, code: code)
+      end
+
       # Returns the health & analytics dashboard for one of your numbers: current
       # status, spam flag, and call metrics over the selected window (total and
       # answered calls, answer rate, minutes, average duration) plus a per-period

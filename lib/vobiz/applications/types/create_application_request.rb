@@ -11,6 +11,10 @@ module Vobiz
         field :answer_url, -> { String }, optional: false, nullable: false
 
         field :answer_method, -> { String }, optional: false, nullable: false
+
+        field :hangup_url, -> { String }, optional: true, nullable: false
+
+        field :hangup_method, -> { String }, optional: true, nullable: false
       end
     end
   end

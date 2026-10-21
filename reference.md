@@ -3862,6 +3862,169 @@ client.phone_numbers.unassign_number_from_trunk(
 </dl>
 </details>
 
+<details><summary><code>client.phone_numbers.<a href="/lib/vobiz/phone_numbers/client.rb">link_number_to_application</a>(auth_id, e164, request) -> </code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Link a phone number to a voice application. Once linked, inbound
+calls to that number fetch VobizXML from the application's
+`answer_url`. A number routes through either an application or a
+SIP trunk, not both: unassign the number from its trunk first
+(`DELETE /api/v1/Account/{auth_id}/numbers/{phone_number}/assign`).
+URL-encode the phone number (use `%2B` instead of `+`).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```ruby
+client.phone_numbers.link_number_to_application(
+  auth_id: "MA_XXXXXX",
+  e164: "%2B912271264217",
+  application_id: "12345678901234567"
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**auth_id:** `String` — Your account Auth ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**e164:** `String` — The phone number, URL-encoded (use %2B instead of +).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**application_id:** `String` — The `app_id` of the application to link this number to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `Vobiz::PhoneNumbers::RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.phone_numbers.<a href="/lib/vobiz/phone_numbers/client.rb">unlink_number_from_application</a>(auth_id, e164) -> </code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove the link between a phone number and its voice application.
+The number stays in your account inventory but inbound calls no
+longer fetch VobizXML from that application.
+URL-encode the phone number (use `%2B` instead of `+`).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```ruby
+client.phone_numbers.unlink_number_from_application(
+  auth_id: "MA_XXXXXX",
+  e164: "%2B912271264217"
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**auth_id:** `String` — Your account Auth ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**e164:** `String` — The phone number, URL-encoded (use %2B instead of +).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `Vobiz::PhoneNumbers::RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.phone_numbers.<a href="/lib/vobiz/phone_numbers/client.rb">get_number_health</a>(auth_id, e164) -> Vobiz::PhoneNumbers::Types::GetNumberHealthResponse</code></summary>
 <dl>
 <dd>
@@ -8400,7 +8563,9 @@ client.applications.create_application(
   auth_id: "MA_XXXXXX",
   app_name: "My Voice Application",
   answer_url: "https://example.com/answer",
-  answer_method: "POST"
+  answer_method: "POST",
+  hangup_url: "https://example.com/hangup",
+  hangup_method: "POST"
 )
 ```
 </dd>
@@ -8441,6 +8606,22 @@ client.applications.create_application(
 <dd>
 
 **answer_method:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_url:** `String` — URL Vobiz notifies when a call on this application ends. If omitted, it defaults to `answer_url`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_method:** `String` — HTTP method used for `hangup_url`, `GET` or `POST`.
     
 </dd>
 </dl>
@@ -8565,7 +8746,11 @@ client.applications.update_application(
   auth_id: "MA_XXXXXX",
   app_id: "12345678",
   app_name: "Updated Application Name",
-  default_number_app: true
+  default_number_app: true,
+  answer_url: "https://example.com/answer",
+  answer_method: "POST",
+  hangup_url: "https://example.com/hangup",
+  hangup_method: "POST"
 )
 ```
 </dd>
@@ -8606,6 +8791,38 @@ client.applications.update_application(
 <dd>
 
 **default_number_app:** `Internal::Types::Boolean` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**answer_url:** `String` — URL Vobiz fetches VobizXML from when a call reaches a number or endpoint linked to this application.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**answer_method:** `String` — HTTP method used for `answer_url`, `GET` or `POST`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_url:** `String` — URL Vobiz notifies when a call on this application ends.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hangup_method:** `String` — HTTP method used for `hangup_url`, `GET` or `POST`.
     
 </dd>
 </dl>
