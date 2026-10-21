@@ -6,7 +6,7 @@ module Vobiz
       class ListApplicationsResponse < Internal::Types::Model
         field :api_id, -> { String }, optional: false, nullable: false
 
-        field :meta, -> { Vobiz::Applications::Types::ListApplicationsResponseMeta }, optional: false, nullable: false
+        field :meta, -> { Vobiz::Types::PaginationMeta }, optional: false, nullable: false
 
         field :objects, -> { Internal::Types::Array[Vobiz::Applications::Types::ListApplicationsResponseObjectsItem] }, optional: false, nullable: false
       end

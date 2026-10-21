@@ -12,7 +12,7 @@ module Vobiz
 
         field :filters, -> { Vobiz::Cdr::Types::SearchCdrsResponseFilters }, optional: false, nullable: false
 
-        field :pagination, -> { Vobiz::Cdr::Types::SearchCdrsResponsePagination }, optional: false, nullable: false
+        field :pagination, -> { Vobiz::Types::CdrPagination }, optional: false, nullable: false
 
         field :success, -> { Internal::Types::Boolean }, optional: false, nullable: false
 

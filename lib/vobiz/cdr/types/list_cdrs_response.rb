@@ -10,7 +10,7 @@ module Vobiz
 
         field :data, -> { Internal::Types::Array[Vobiz::Cdr::Types::ListCdrsResponseDataItem] }, optional: false, nullable: false
 
-        field :pagination, -> { Vobiz::Cdr::Types::ListCdrsResponsePagination }, optional: false, nullable: false
+        field :pagination, -> { Vobiz::Types::CdrPagination }, optional: false, nullable: false
 
         field :success, -> { Internal::Types::Boolean }, optional: false, nullable: false
 
