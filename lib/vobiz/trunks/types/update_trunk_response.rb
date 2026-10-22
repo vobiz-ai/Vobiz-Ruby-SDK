@@ -12,7 +12,7 @@ module Vobiz
 
         field :trunk_domain, -> { String }, optional: false, nullable: false
 
-        field :trunk_status, -> { String }, optional: false, nullable: false
+        field :trunk_status, -> { Vobiz::Trunks::Types::UpdateTrunkResponseTrunkStatus }, optional: false, nullable: false
 
         field :secure, -> { Internal::Types::Boolean }, optional: false, nullable: false
 

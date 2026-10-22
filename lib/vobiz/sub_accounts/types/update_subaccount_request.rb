@@ -10,6 +10,8 @@ module Vobiz
 
         field :name, -> { String }, optional: true, nullable: false
 
+        field :is_active, -> { Internal::Types::Boolean }, optional: true, nullable: false
+
         field :enabled, -> { Internal::Types::Boolean }, optional: true, nullable: false
 
         field :kyc_mode, -> { Vobiz::SubAccounts::Types::UpdateSubaccountRequestKycMode }, optional: true, nullable: false

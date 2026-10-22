@@ -8,9 +8,9 @@ module Vobiz
 
         field :app_id, -> { String }, optional: false, nullable: false
 
-        field :app_name, -> { String }, optional: false, nullable: false
+        field :app_name, -> { String }, optional: true, nullable: false
 
-        field :default_number_app, -> { Internal::Types::Boolean }, optional: false, nullable: false
+        field :default_number_app, -> { Internal::Types::Boolean }, optional: true, nullable: false
 
         field :answer_url, -> { String }, optional: true, nullable: false
 

@@ -12,6 +12,10 @@ module Vobiz
 
       # Add an IP access control rule to restrict SIP trunk access.
       #
+      # Use the public IP address or CIDR range of your own SBC or PBX. The API
+      # rejects documentation-only ranges such as `203.0.113.0/24` with `400`.
+      # Responses return the rule's label in `description`.
+      #
       # @param request_options [Hash]
       # @param params [Vobiz::IPAccessControlList::Types::CreateIpAclRequest]
       # @option request_options [String] :base_url

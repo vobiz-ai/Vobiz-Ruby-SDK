@@ -12,7 +12,9 @@ module Vobiz
 
         field :alias_, -> { String }, optional: false, nullable: false, api_name: "alias"
 
-        field :application, -> { Integer }, optional: false, nullable: false
+        field :app_id, -> { String }, optional: true, nullable: false
+
+        field :application, -> { Integer }, optional: true, nullable: false
       end
     end
   end

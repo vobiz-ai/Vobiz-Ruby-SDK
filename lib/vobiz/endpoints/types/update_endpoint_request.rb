@@ -11,6 +11,8 @@ module Vobiz
         field :alias_, -> { String }, optional: false, nullable: false, api_name: "alias"
 
         field :password, -> { String }, optional: false, nullable: false
+
+        field :app_id, -> { String }, optional: true, nullable: false
       end
     end
   end
