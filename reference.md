@@ -9810,7 +9810,7 @@ wallet. Both legs are recorded in each account's ledger. Transfers are
 
 ```ruby
 client.partner_api.partner_transfer_balance(
-  customer_auth_id: "MA_ZKITB8Z2",
+  customer_auth_id: "MA_XXXXXXXX",
   amount: 500,
   currency: "INR"
 )
@@ -10304,7 +10304,7 @@ companies). No document uploads required.
 <dd>
 
 ```ruby
-client.partner_api.create_kyc_session(account_auth_id: "MA_ZKITB8Z2")
+client.partner_api.create_kyc_session(account_auth_id: "MA_XXXXXXXX")
 ```
 </dd>
 </dl>
